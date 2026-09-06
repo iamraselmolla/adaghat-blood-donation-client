@@ -36,9 +36,9 @@ export function DonorFiltersBar({ filters, onChange }: Props) {
         />
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap snap-x snap-proximity">
         <Select value={filters.bloodGroup ?? "ALL"} onValueChange={(v) => update("bloodGroup", v as any)}>
-          <SelectTrigger className="w-[140px] h-9 text-xs">
+          <SelectTrigger className="w-[140px] shrink-0 snap-start h-9 text-xs">
             <SelectValue placeholder="Blood Group" />
           </SelectTrigger>
           <SelectContent>
@@ -52,7 +52,7 @@ export function DonorFiltersBar({ filters, onChange }: Props) {
         </Select>
 
         <Select value={filters.division ?? "ALL"} onValueChange={(v) => update("division", v === "ALL" ? undefined : v)}>
-          <SelectTrigger className="w-[140px] h-9 text-xs">
+          <SelectTrigger className="w-[140px] shrink-0 snap-start h-9 text-xs">
             <SelectValue placeholder="Division" />
           </SelectTrigger>
           <SelectContent>
@@ -67,7 +67,7 @@ export function DonorFiltersBar({ filters, onChange }: Props) {
 
         {filters.division && (
           <Select value={filters.district ?? "ALL"} onValueChange={(v) => update("district", v === "ALL" ? undefined : v)}>
-            <SelectTrigger className="w-[140px] h-9 text-xs">
+            <SelectTrigger className="w-[140px] shrink-0 snap-start h-9 text-xs">
               <SelectValue placeholder="District" />
             </SelectTrigger>
             <SelectContent>
@@ -82,7 +82,7 @@ export function DonorFiltersBar({ filters, onChange }: Props) {
         )}
 
         <Select value={filters.availability ?? "ALL"} onValueChange={(v) => update("availability", v as any)}>
-          <SelectTrigger className="w-[140px] h-9 text-xs">
+          <SelectTrigger className="w-[140px] shrink-0 snap-start h-9 text-xs">
             <SelectValue placeholder="Availability" />
           </SelectTrigger>
           <SelectContent>
@@ -93,7 +93,7 @@ export function DonorFiltersBar({ filters, onChange }: Props) {
         </Select>
 
         <Select value={filters.eligibility ?? "ALL"} onValueChange={(v) => update("eligibility", v as any)}>
-          <SelectTrigger className="w-[150px] h-9 text-xs">
+          <SelectTrigger className="w-[150px] shrink-0 snap-start h-9 text-xs">
             <SelectValue placeholder="Eligibility" />
           </SelectTrigger>
           <SelectContent>
@@ -107,7 +107,7 @@ export function DonorFiltersBar({ filters, onChange }: Props) {
           <Button
             variant="ghost"
             size="sm"
-            className="text-xs gap-1 text-muted-foreground"
+            className="text-xs gap-1 text-muted-foreground shrink-0"
             onClick={() =>
               onChange({ search: "", bloodGroup: "ALL", division: undefined, district: undefined, availability: "ALL", eligibility: "ALL", page: 1, limit: filters.limit })
             }

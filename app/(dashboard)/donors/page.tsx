@@ -76,7 +76,7 @@ export default function DonorsPage() {
 
   return (
     <div className="space-y-5 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between flex-wrap gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Donor Management</h1>
           <p className="text-sm text-muted-foreground mt-1">
@@ -85,7 +85,8 @@ export default function DonorsPage() {
         </div>
         {canCreateDonor && (
           <Button
-            className="gap-2"
+            className="gap-2 w-full sm:w-auto"
+            size="lg"
             onClick={() => {
               setEditingDonor(null);
               setFormOpen(true);

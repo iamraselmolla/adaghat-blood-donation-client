@@ -160,7 +160,7 @@ export function DonorFormModal({ open, onOpenChange, donor }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-xl">
+      <DialogContent className="sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{isEdit ? "Edit Donor" : "Add New Donor"}</DialogTitle>
         </DialogHeader>
@@ -170,8 +170,8 @@ export function DonorFormModal({ open, onOpenChange, donor }: Props) {
         <form onSubmit={handleSubmit((v) => mutation.mutate(v))} className="space-y-4">
           {step === 0 && (
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1.5 col-span-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1.5 sm:col-span-2">
                   <Label>Full Name</Label>
                   <Input {...register("name")} placeholder="Jane Doe" />
                   {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
@@ -190,7 +190,7 @@ export function DonorFormModal({ open, onOpenChange, donor }: Props) {
                 </div>
 
                 {!isEdit && (
-                  <div className="space-y-1.5 col-span-2">
+                  <div className="space-y-1.5 sm:col-span-2">
                     <Label>Password (for donor account login)</Label>
                     <Input type="password" {...register("password")} placeholder="••••••••" />
                   </div>
@@ -278,12 +278,12 @@ export function DonorFormModal({ open, onOpenChange, donor }: Props) {
                   {errors.upazila && <p className="text-xs text-destructive">{errors.upazila.message}</p>}
                 </div>
 
-                <div className="space-y-1.5 col-span-2">
+                <div className="space-y-1.5 sm:col-span-2">
                   <Label>Address Line (optional)</Label>
                   <Input {...register("addressLine")} placeholder="House, road, area" />
                 </div>
 
-                <div className="flex items-center justify-between col-span-2 bg-muted/40 rounded-xl px-4 py-3">
+                <div className="flex items-center justify-between sm:col-span-2 bg-muted/40 rounded-xl px-4 py-3 gap-3">
                   <div>
                     <p className="text-sm font-medium">Currently Available</p>
                     <p className="text-xs text-muted-foreground">Donor is open to donation requests</p>
@@ -296,7 +296,7 @@ export function DonorFormModal({ open, onOpenChange, donor }: Props) {
 
           {step === 1 && (
             <div className="space-y-4">
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="space-y-1.5">
                   <Label>Weight (kg)</Label>
                   <Input type="number" step="0.1" {...register("weightKg")} />
@@ -316,12 +316,13 @@ export function DonorFormModal({ open, onOpenChange, donor }: Props) {
 
               <div>
                 <Label className="mb-2 block">Chronic Illnesses / Risk Flags</Label>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                   {conditionFields.map((c) => (
-                    <label key={c.key} className="flex items-center gap-2.5 bg-muted/40 rounded-xl px-3.5 py-2.5 cursor-pointer">
+                    <label key={c.key} className="flex items-center gap-2.5 bg-muted/40 rounded-xl px-3.5 py-2.5 cursor-pointer active:bg-muted/70 transition-colors">
                       <Checkbox
                         checked={watch(c.key)}
                         onCheckedChange={(v) => setValue(c.key, !!v)}
+                        className="shrink-0"
                       />
                       <span className="text-sm">{c.label}</span>
                     </label>
