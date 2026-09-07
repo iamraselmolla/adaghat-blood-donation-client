@@ -17,7 +17,7 @@ import { useAuthStore } from "@/store/auth-store";
 import { getInitials } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { LogOut, User as UserIcon } from "lucide-react";
-import { InstallPwaButton } from "@/components/shared/install-pwa-button";
+import { InstallPwaButton } from "./components/shared/install-pwa-button";
 
 export function Topbar() {
   const user = useAuthStore((s) => s.user);
