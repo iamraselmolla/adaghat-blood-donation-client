@@ -29,34 +29,43 @@ const DialogContent = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
-    <DialogPrimitive.Content
-      ref={ref}
-      className={cn(
-        // Mobile: full-screen app-like sheet, no rounding, safe-area aware.
-        // sm+: classic centered, rounded, capped-height dialog.
-        "fixed inset-0 z-50 flex flex-col w-full h-[100dvh] bg-card/95 backdrop-blur-xl overflow-y-auto no-scrollbar",
-        "sm:inset-auto sm:left-1/2 sm:top-1/2 sm:h-auto sm:w-[92vw] sm:max-w-lg sm:-translate-x-1/2 sm:-translate-y-1/2",
-        "sm:rounded-2xl sm:border sm:border-border/60 sm:shadow-glass-lg sm:max-h-[88vh]",
-        "px-5 pb-0 pt-0 sm:px-6 sm:pb-0 sm:pt-0",
-        className
-      )}
-      {...props}
-      asChild
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 24 }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
-        className="flex flex-col flex-1 gap-4 min-h-0"
+    {/*
+      Centering wrapper: a full-viewport flex box that centers its one child.
+      This replaces fixed+translate centering, which can behave inconsistently
+      across desktop viewport sizes/zoom levels. pointer-events-none lets clicks
+      in the empty padding area fall through to the overlay (closing the dialog);
+      the Content re-enables pointer-events for itself.
+    */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-6 pointer-events-none">
+      <DialogPrimitive.Content
+        ref={ref}
+        className={cn(
+          // Mobile: full-screen app-like sheet, no rounding, safe-area aware.
+          // sm+: centered card, capped width/height, scrolls internally if content is tall.
+          "pointer-events-auto flex flex-col w-full h-[100dvh] bg-card/95 backdrop-blur-xl overflow-y-auto no-scrollbar",
+          "sm:w-[92vw] sm:max-w-lg sm:h-auto sm:max-h-[88vh]",
+          "sm:rounded-2xl sm:border sm:border-border/60 sm:shadow-glass-lg",
+          "px-5 sm:px-6",
+          className
+        )}
+        {...props}
+        asChild
       >
-        {children}
-        <DialogPrimitive.Close className="absolute right-4 top-[calc(env(safe-area-inset-top)+1.1rem)] sm:top-4 h-8 w-8 flex items-center justify-center rounded-lg bg-background/60 sm:bg-transparent opacity-80 hover:opacity-100 hover:bg-accent transition-opacity z-20">
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
-        </DialogPrimitive.Close>
-      </motion.div>
-    </DialogPrimitive.Content>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 24 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className="flex flex-col flex-1 gap-4 min-h-0"
+        >
+          {children}
+          <DialogPrimitive.Close className="absolute right-4 top-[calc(env(safe-area-inset-top)+1.1rem)] sm:top-4 h-8 w-8 flex items-center justify-center rounded-lg bg-background/60 sm:bg-transparent opacity-80 hover:opacity-100 hover:bg-accent transition-opacity z-20">
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </DialogPrimitive.Close>
+        </motion.div>
+      </DialogPrimitive.Content>
+    </div>
   </DialogPortal>
 ));
 DialogContent.displayName = DialogPrimitive.Content.displayName;
