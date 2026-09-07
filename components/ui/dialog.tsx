@@ -11,7 +11,7 @@ const DialogTrigger = DialogPrimitive.Trigger;
 const DialogPortal = DialogPrimitive.Portal;
 const DialogClose = DialogPrimitive.Close;
 
-const DialogOverlay = React.forwardRef<
+const DialogOverlay = React.forwardRef
   React.ElementRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
@@ -23,7 +23,7 @@ const DialogOverlay = React.forwardRef<
 ));
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
-const DialogContent = React.forwardRef<
+const DialogContent = React.forwardRef
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
@@ -65,7 +65,7 @@ const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
   <div
     className={cn(
       "flex flex-col space-y-1.5 text-left pr-8 shrink-0",
-      "sticky top-0 -mx-5 sm:-mx-6 sm:-mt-6 px-5 sm:px-6 pb-3 bg-card/95 backdrop-blur-xl z-10 border-b border-border/60",
+      "sticky top-0 -mx-5 sm:-mx-6 px-5 sm:px-6 pb-3 bg-card/95 backdrop-blur-xl z-10 border-b border-border/60",
       "pt-[calc(env(safe-area-inset-top)+1.25rem)] sm:pt-6",
       className
     )}
@@ -73,7 +73,7 @@ const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
   />
 );
 
-const DialogTitle = React.forwardRef<
+const DialogTitle = React.forwardRef
   React.ElementRef<typeof DialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
@@ -81,7 +81,7 @@ const DialogTitle = React.forwardRef<
 ));
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
-const DialogDescription = React.forwardRef<
+const DialogDescription = React.forwardRef
   React.ElementRef<typeof DialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
@@ -93,7 +93,7 @@ const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
   <div
     className={cn(
       "flex flex-col-reverse sm:flex-row gap-2 sm:gap-0 sm:justify-end sm:space-x-2 shrink-0",
-      "sticky bottom-0 -mx-5 sm:-mx-6 sm:-mb-6 px-5 sm:px-6 pt-3 bg-card/95 backdrop-blur-xl border-t border-border/60",
+      "sticky bottom-0 -mx-5 sm:-mx-6 px-5 sm:px-6 pt-3 bg-card/95 backdrop-blur-xl border-t border-border/60",
       "pb-[calc(env(safe-area-inset-bottom)+1rem)] sm:pb-6",
       "[&>button]:w-full sm:[&>button]:w-auto",
       className
