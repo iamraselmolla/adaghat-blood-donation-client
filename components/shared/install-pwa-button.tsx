@@ -3,8 +3,8 @@
 import * as React from "react";
 import { Download, Share, X, PlusSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { useInstallPrompt } from "@/hooks/use-install-prompt";
+import { Button } from "../../components/ui/button";
+import { useInstallPrompt } from "../../hooks/use-install-prompt";
 
 export function InstallPwaButton() {
   const { isInstallable, isInstalled, isIOS, promptInstall } = useInstallPrompt();
