@@ -17,6 +17,7 @@ import { useAuthStore } from "@/store/auth-store";
 import { getInitials } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { LogOut, User as UserIcon } from "lucide-react";
+import { InstallPwaButton } from "@/components/shared/install-pwa-button";
 
 export function Topbar() {
   const user = useAuthStore((s) => s.user);
@@ -35,6 +36,7 @@ export function Topbar() {
       <div className="flex-1 sm:hidden" />
 
       <div className="flex items-center gap-1.5 ml-auto">
+        <InstallPwaButton />
         <ThemeToggle />
         <button className="relative h-10 w-10 flex items-center justify-center rounded-xl hover:bg-accent/50 transition-colors">
           <Bell className="h-4.5 w-4.5" />
