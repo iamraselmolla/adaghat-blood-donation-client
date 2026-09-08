@@ -20,9 +20,19 @@ export function daysSince(date?: string | null) {
   return Math.floor(diff / (1000 * 60 * 60 * 24));
 }
 
-/** Blood donation eligibility rule: 120 days since last donation */
+/** Minimum gap required between whole-blood donations: 3 months. */
+export const MIN_DONATION_GAP_DAYS = 90;
+
+/** Blood donation eligibility rule: must be at least 3 months (90 days) since last donation. */
 export function isEligibleByDate(lastDonationDate?: string | null) {
-  return daysSince(lastDonationDate) >= 120;
+  return daysSince(lastDonationDate) >= MIN_DONATION_GAP_DAYS;
+}
+
+/** Days remaining until a donor becomes eligible again. 0 if already eligible. */
+export function daysUntilEligible(lastDonationDate?: string | null) {
+  if (!lastDonationDate) return 0;
+  const remaining = MIN_DONATION_GAP_DAYS - daysSince(lastDonationDate);
+  return Math.max(0, remaining);
 }
 
 export function getInitials(name: string) {

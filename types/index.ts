@@ -61,6 +61,22 @@ export interface Donor {
   avatarUrl?: string;
 }
 
+export interface DonationRecord {
+  _id: string;
+  donorId: string;
+  donorName?: string; // populated for list views
+  donorBloodGroup?: BloodGroup;
+  donationDate: string;
+  location: string;
+  recipientName: string;
+  requestedByName?: string;
+  requestedByPhone?: string;
+  notes?: string;
+  recordedBy?: string; // staff user id
+  recordedByName?: string;
+  createdAt: string;
+}
+
 export interface DashboardStats {
   totalDonors: number;
   eligibleDonors: number;

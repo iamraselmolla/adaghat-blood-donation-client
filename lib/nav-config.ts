@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, ShieldCheck, Settings, Activity } from "lucide-react";
+import { LayoutDashboard, Users, ShieldCheck, Settings, Activity, Droplets } from "lucide-react";
 import { Role } from "@/types";
 
 export interface NavItem {
@@ -19,6 +19,12 @@ export const navItems: NavItem[] = [
     label: "Donors",
     href: "/donors",
     icon: Users,
+    roles: ["SUPER_ADMIN", "ADMIN", "MEMBER"],
+  },
+  {
+    label: "Donations",
+    href: "/donations",
+    icon: Droplets,
     roles: ["SUPER_ADMIN", "ADMIN", "MEMBER"],
   },
   {

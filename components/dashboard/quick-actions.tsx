@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { UserPlus, Search, Siren, ShieldCheck } from "lucide-react";
+import { UserPlus, Search, Siren, ShieldCheck, HeartHandshake } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { usePermissions } from "@/hooks/use-permissions";
 
 const baseActions = [
   { label: "Find Donor", href: "/donors", icon: Search, roles: ["SUPER_ADMIN", "ADMIN", "MEMBER"] },
   { label: "Add Donor", href: "/donors?action=add", icon: UserPlus, roles: ["SUPER_ADMIN", "ADMIN"] },
+  { label: "Record Donation", href: "/donations", icon: HeartHandshake, roles: ["SUPER_ADMIN", "ADMIN"] },
   { label: "Emergency Request", href: "/requests?action=new", icon: Siren, roles: ["SUPER_ADMIN", "ADMIN", "MEMBER"] },
   { label: "Manage Roles", href: "/roles", icon: ShieldCheck, roles: ["SUPER_ADMIN"] },
 ];

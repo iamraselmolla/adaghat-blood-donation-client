@@ -1,14 +1,17 @@
 "use client";
 
+import * as React from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Donor } from "@/types";
-import { bloodGroupColor, formatDate, getInitials } from "@/lib/utils";
+import { bloodGroupColor, daysUntilEligible, formatDate, getInitials } from "@/lib/utils";
 import { EligibilityBadge } from "@/components/donors/eligibility-badge";
+import { DonationHistoryList } from "@/components/donations/donation-history-list";
+import { RecordDonationModal } from "@/components/donations/record-donation-modal";
 import { usePermissions } from "@/hooks/use-permissions";
-import { Mail, MapPin, Phone, Pencil, Calendar, Droplet } from "lucide-react";
+import { Mail, MapPin, Phone, Pencil, Calendar, Droplet, HeartHandshake } from "lucide-react";
 
 interface Props {
   donor: Donor | null;
@@ -39,13 +42,15 @@ const conditionLabels: Record<string, string> = {
 };
 
 export function DonorDetailModal({ donor, open, onOpenChange, onEdit }: Props) {
-  const { canEditDonor } = usePermissions();
+  const { canEditDonor, isReadOnly } = usePermissions();
+  const [recordOpen, setRecordOpen] = React.useState(false);
   if (!donor) return null;
 
   const mr = donor.medicalRecord;
   const flaggedConditions = mr
     ? Object.entries(mr.conditions).filter(([, v]) => v).map(([k]) => conditionLabels[k])
     : [];
+  const remainingDays = daysUntilEligible(donor.lastDonationDate);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -122,14 +127,31 @@ export function DonorDetailModal({ donor, open, onOpenChange, onEdit }: Props) {
           </div>
         )}
 
+        <div className="space-y-1 border-t border-border/60 pt-2">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide pt-2 mb-2">
+            Donation History
+          </p>
+          <DonationHistoryList donorId={donor._id} />
+        </div>
+
         {canEditDonor && (
-          <DialogFooter>
+          <DialogFooter className="flex-row-reverse sm:flex-row">
             <Button variant="outline" onClick={() => onEdit(donor)} className="gap-2">
               <Pencil className="h-4 w-4" /> Edit Donor
+            </Button>
+            <Button
+              onClick={() => setRecordOpen(true)}
+              disabled={remainingDays > 0}
+              className="gap-2"
+              title={remainingDays > 0 ? `Not eligible for ${remainingDays} more day(s)` : undefined}
+            >
+              <HeartHandshake className="h-4 w-4" /> Record Donation
             </Button>
           </DialogFooter>
         )}
       </DialogContent>
+
+      <RecordDonationModal open={recordOpen} onOpenChange={setRecordOpen} preselectedDonor={donor} />
     </Dialog>
   );
 }
